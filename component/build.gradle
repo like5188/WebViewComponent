@@ -53,11 +53,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'com.github.like5188:Common:5.3.3'
-
-    kapt 'com.alibaba:arouter-compiler:1.2.2'
-
-    implementation 'com.github.like5188:WebViewComponentService:0.0.1'
     implementation 'com.github.like5188:WebView:5.0.5'
+    // 组件化的必须用compileOnly，避免在SchistosomaMain中打包release时，出现bug：Program type already present: xxx.BuildConfig
+    compileOnly 'com.github.like5188:WebViewComponentService:0.0.1'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
 }
 
 apply from: rootProject.file('./gradle-mvn-push.gradle')
