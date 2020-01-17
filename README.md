@@ -26,8 +26,10 @@
     dependencies {
         implementation 'com.github.like5188:Common:5.3.3'
         implementation 'com.github.like5188:WebView:5.0.5'
+
         implementation 'com.github.like5188:WebViewComponentService:0.0.1'
         implementation 'com.github.like5188:WebViewComponent:版本号'
+
         kapt 'com.alibaba:arouter-compiler:1.2.2'
     }
 ```
