@@ -12,7 +12,7 @@ import com.like.common.base.BaseFragment
 import com.like.webview.JavascriptInterface
 import com.like.webview.X5Listener
 import com.like.webview.X5ProgressBarWebView
-import com.like.webview.component.databinding.FragmentWebviewBinding
+import com.like.webview.component.databinding.WebviewFragmentWebviewBinding
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
 
@@ -49,7 +49,7 @@ class WebViewFragment : BaseFragment() {
     private var mWebView: WebView? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentWebviewBinding>(inflater, R.layout.fragment_webview, container, false)
+        val binding = DataBindingUtil.inflate<WebviewFragmentWebviewBinding>(inflater, R.layout.webview_fragment_webview, container, false)
             ?: throw RuntimeException("初始化 WebViewFragment 失败")
         ARouter.getInstance().inject(this)
         mX5ProgressBarWebView = binding.webView
