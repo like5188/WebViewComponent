@@ -8,7 +8,6 @@ import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.like.webview.component.databinding.WebviewActivityWebviewBinding
-import com.like.webview.component.service.WebViewService
 
 /**
  * 对 [WebViewFragment] 的封装
