@@ -41,6 +41,14 @@ import com.tencent.smtt.sdk.WebView
  */
 @Route(path = Consts.UI_WEB_VIEW_FRAGMENT)
 class WebViewFragment : BaseFragment() {
+    companion object {
+        fun get(url: String): WebViewFragment {
+            return ARouter.getInstance().build(Consts.UI_WEB_VIEW_FRAGMENT)
+                .withString("url", url)
+                .navigation() as WebViewFragment
+        }
+    }
+
     @Autowired
     @JvmField
     var url: String? = null

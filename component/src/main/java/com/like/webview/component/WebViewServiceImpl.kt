@@ -3,12 +3,11 @@ package com.like.webview.component
 import android.content.Context
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.like.webview.X5Listener
 import com.like.webview.component.service.WebViewService
 import com.tencent.smtt.sdk.WebView
 
-@Route(path = Consts.SERVICE_WEB_VIEW, name = "登录页面路由服务")
+@Route(path = Consts.SERVICE_WEB_VIEW, name = "WebView页面路由服务实现")
 class WebViewServiceImpl : WebViewService {
     private var mContext: Context? = null
     private var mWebViewFragment: WebViewFragment? = null
@@ -17,12 +16,14 @@ class WebViewServiceImpl : WebViewService {
         mContext = context
     }
 
-    override fun getFragment(url: String): Fragment {
-        val fragment = ARouter.getInstance().build(Consts.UI_WEB_VIEW_FRAGMENT)
-                .withString("url", url)
-                .navigation() as WebViewFragment
+    override fun getWebViewFragment(url: String): Fragment {
+        val fragment = WebViewFragment.get(url)
         mWebViewFragment = fragment
         return fragment
+    }
+
+    override fun startWebViewActivity(url: String) {
+        WebViewActivity.start(url)
     }
 
     override fun getWebView(): WebView? {

@@ -30,8 +30,8 @@ class TestActivity : BaseActivity() {
         ARouter.getInstance().inject(this)
         mBinding
         val url = "file:///android_asset/index.html"
-//        val url = "http://www.sohu.com/"
-        mWebViewService?.getFragment(url)?.let {
+//        val url = "https://www.sina.com.cn/"
+        mWebViewService?.getWebViewFragment(url)?.let {
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.fragment_holder, it)
                 // 触发BaseFragment的lazyLoadData()方法
@@ -83,6 +83,10 @@ class TestActivity : BaseActivity() {
             override fun onReceivedError(webView: WebView?) {
             }
         })
+    }
+
+    fun startWebViewActivity(view: View) {
+        mWebViewService?.startWebViewActivity("https://www.sina.com.cn/")
     }
 
     fun pageUp(view: View) {
