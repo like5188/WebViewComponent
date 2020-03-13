@@ -24,7 +24,7 @@
 在Module的gradle中加入：
 ```groovy
     dependencies {
-        implementation 'com.github.like5188:Common:5.4.4'
+        implementation 'com.github.like5188:Common:5.4.7'
         implementation 'com.github.like5188:WebView:5.0.5'
 
         implementation 'com.github.like5188:WebViewComponentService:0.0.2'
