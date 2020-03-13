@@ -10,7 +10,7 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
 
         <meta-data
-            android:name="com.like.webview.component.MyApplication"
+            android:name="com.like.webview.component.WebViewApplication"
             android:value="IModuleApplication" />
     </application>
 </manifest>
