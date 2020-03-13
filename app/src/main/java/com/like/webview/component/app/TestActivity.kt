@@ -3,12 +3,12 @@ package com.like.webview.component.app
 import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.alibaba.android.arouter.facade.annotation.Autowired
 import com.alibaba.android.arouter.launcher.ARouter
 import com.like.common.base.BaseActivity
+import com.like.common.util.Logger
 import com.like.webview.X5Listener
 import com.like.webview.component.app.databinding.ActivityTestBinding
 import com.like.webview.component.service.WebViewService
@@ -53,7 +53,7 @@ class TestActivity : BaseActivity() {
                 val jsonObject = JSONObject(it)
                 val name = jsonObject.optString("name")
                 val age = jsonObject.optInt("age")
-                Log.d("WebViewFragment", "androidMethodName name=$name age=$age")
+                Logger.d("androidMethodName name=$name age=$age")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -107,7 +107,7 @@ class TestActivity : BaseActivity() {
             params.put("name", "like1")
             params.put("age", 22)
             mWebViewService?.callJSMethod("jsMethodName", params.toString()) {
-                Log.d("TestActivity", "callJsMethod 返回值：$it")
+                Logger.d("callJsMethod 返回值：$it")
             }
         } catch (e: Exception) {
             e.printStackTrace()
