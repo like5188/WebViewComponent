@@ -6,7 +6,7 @@
 
 ## 功能介绍
 
-1、对 implementation 'com.github.like5188:WebView:版本号' 库。
+1、对 'com.github.like5188:WebView:版本号' 库进行组件化封装的库。
 
 ## 使用方法：
 
@@ -29,8 +29,6 @@
 
         implementation 'com.github.like5188:WebViewComponentService:0.0.3'
         implementation 'com.github.like5188:WebViewComponent:版本号'
-
-        kapt 'com.alibaba:arouter-compiler:1.2.2'
     }
 ```
 
