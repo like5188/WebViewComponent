@@ -2,28 +2,24 @@ package com.like.webview.component
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.auto.service.AutoService
+import com.like.common.util.startActivity
 import com.like.webview.X5Listener
-import com.like.webview.component.service.WebViewService
+import com.like.webview.component.service.IWebViewService
 import com.tencent.smtt.sdk.WebView
 
-@Route(path = Consts.SERVICE_WEB_VIEW, name = "WebView页面路由服务实现")
-class WebViewServiceImpl : WebViewService {
-    private var mContext: Context? = null
+@AutoService(IWebViewService::class)
+class WebViewService : IWebViewService {
     private var mWebViewFragment: WebViewFragment? = null
 
-    override fun init(context: Context) {
-        mContext = context
-    }
-
     override fun getWebViewFragment(url: String): Fragment {
-        val fragment = WebViewFragment.get(url)
-        mWebViewFragment = fragment
-        return fragment
+        return WebViewFragment(url).apply {
+            mWebViewFragment = this
+        }
     }
 
-    override fun startWebViewActivity(url: String) {
-        WebViewActivity.start(url)
+    override fun startWebViewActivity(context: Context, url: String) {
+        context.startActivity<WebViewActivity>("url" to url)
     }
 
     override fun getWebView(): WebView? {
@@ -42,7 +38,11 @@ class WebViewServiceImpl : WebViewService {
         mWebViewFragment?.registerAndroidMethodForJSCall(methodName, method)
     }
 
-    override fun callJSMethod(methodName: String, paramsJsonString: String?, callback: ((String) -> Unit)?) {
+    override fun callJSMethod(
+        methodName: String,
+        paramsJsonString: String?,
+        callback: ((String) -> Unit)?
+    ) {
         mWebViewFragment?.callJSMethod(methodName, paramsJsonString, callback)
     }
 

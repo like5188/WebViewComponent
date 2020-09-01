@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.alibaba.android.arouter.facade.annotation.Autowired
-import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.like.common.base.BaseFragment
 import com.like.webview.JavascriptInterface
 import com.like.webview.X5Listener
@@ -39,19 +36,7 @@ import com.tencent.smtt.sdk.WebView
  *          <dimen name="webview_progress_bar_height">3dp</dimen>
  *          </resources>
  */
-@Route(path = Consts.UI_WEB_VIEW_FRAGMENT)
-class WebViewFragment : BaseFragment() {
-    companion object {
-        fun get(url: String): WebViewFragment {
-            return ARouter.getInstance().build(Consts.UI_WEB_VIEW_FRAGMENT)
-                .withString("url", url)
-                .navigation() as WebViewFragment
-        }
-    }
-
-    @Autowired
-    @JvmField
-    var url: String? = null
+class WebViewFragment(private val url: String?) : BaseFragment() {
     private val mJavascriptInterface: JavascriptInterface by lazy { JavascriptInterface() }
     private var mX5ProgressBarWebView: X5ProgressBarWebView? = null
     private var mWebView: WebView? = null
@@ -59,7 +44,6 @@ class WebViewFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<WebviewFragmentWebviewBinding>(inflater, R.layout.webview_fragment_webview, container, false)
             ?: throw RuntimeException("初始化 WebViewFragment 失败")
-        ARouter.getInstance().inject(this)
         mX5ProgressBarWebView = binding.webView
         mWebView = mX5ProgressBarWebView?.getWebView()
         mWebView?.settings?.cacheMode = WebSettings.LOAD_NO_CACHE// 支持微信H5支付

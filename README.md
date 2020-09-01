@@ -6,7 +6,7 @@
 
 ## 功能介绍
 
-1、对 implementation 'com.github.like5188:WebView:版本号' 库，用 ARouter 进行的组件化封装。
+1、对 implementation 'com.github.like5188:WebView:版本号' 库。
 
 ## 使用方法：
 
@@ -24,14 +24,14 @@
 在Module的gradle中加入：
 ```groovy
     dependencies {
-        implementation 'com.github.like5188:Common:5.4.8'
+        implementation 'com.github.like5188:Common:5.7.4'
         implementation 'com.github.like5188:WebView:5.0.5'
 
-        implementation 'com.github.like5188:WebViewComponentService:0.0.2'
+        implementation 'com.github.like5188:WebViewComponentService:0.0.3'
         implementation 'com.github.like5188:WebViewComponent:版本号'
 
         kapt 'com.alibaba:arouter-compiler:1.2.2'
     }
 ```
 
-2、通过 implementation 'com.github.like5188:WebViewComponentService:0.0.1' 库中的 WebViewService 接口进行相关操作，详情见例子。
+2、通过 implementation 'com.github.like5188:WebViewComponentService:0.0.3' 库中的 WebViewService 接口进行相关操作，详情见例子。
