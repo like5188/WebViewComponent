@@ -60,9 +60,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    // 解决 release 时集成的 FamilyWebView 编译报错的bug：More than one file was found with OS independent path 'META-INF/webview_release.kotlin_module'
+    // 解决 release 时集成编译报错：More than one file was found with OS independent path 'META-INF/webview_release.kotlin_module'
+    // 解决 com.android.tools.build:gradle:3.6.4 报错：Entry name 'META-INF/MANIFEST.MF' collided
     packagingOptions {
-        pickFirst 'META-INF/*'
+        exclude 'META-INF/*'
     }
 
     kotlinOptions {
