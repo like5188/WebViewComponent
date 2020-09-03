@@ -1,9 +1,7 @@
 package com.like.webview.component
 
-import android.content.Context
 import androidx.fragment.app.Fragment
 import com.google.auto.service.AutoService
-import com.like.common.util.startActivity
 import com.like.webview.X5Listener
 import com.like.webview.component.service.IWebViewService
 import com.tencent.smtt.sdk.WebView
@@ -18,8 +16,8 @@ class WebViewService : IWebViewService {
         }
     }
 
-    override fun startWebViewActivity(context: Context, url: String) {
-        context.startActivity<WebViewActivity>("url" to url)
+    override fun startWebViewActivity(url: String) {
+        WebViewActivity.start(url)
     }
 
     override fun getWebView(): WebView? {

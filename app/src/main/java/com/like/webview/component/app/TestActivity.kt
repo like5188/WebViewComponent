@@ -80,7 +80,7 @@ class TestActivity : BaseActivity() {
     }
 
     fun startWebViewActivity(view: View) {
-        IWebViewService.getInstance()?.startWebViewActivity(this, "https://www.sina.com.cn/")
+        IWebViewService.getInstance()?.startWebViewActivity("https://www.sina.com.cn/")
     }
 
     fun pageUp(view: View) {

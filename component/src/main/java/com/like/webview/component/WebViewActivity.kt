@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.like.common.util.AutoWired
 import com.like.common.util.injectForIntentExtras
+import com.like.common.util.startActivityByApplication
 import com.like.webview.component.databinding.WebviewActivityWebviewBinding
 
 /**
@@ -15,6 +16,12 @@ import com.like.webview.component.databinding.WebviewActivityWebviewBinding
 class WebViewActivity : AppCompatActivity() {
     @AutoWired
     var url: String? = null
+
+    companion object {
+        fun start(url: String?) {
+            startActivityByApplication<WebViewActivity>("url" to url)
+        }
+    }
 
     private val mBinding by lazy {
         DataBindingUtil.setContentView<WebviewActivityWebviewBinding>(
