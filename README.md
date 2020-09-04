@@ -24,12 +24,10 @@
 在Module的gradle中加入：
 ```groovy
     dependencies {
-        implementation 'com.github.like5188:Common:5.7.8'
-        implementation 'com.github.like5188:WebView:5.0.5'
-
-        implementation 'com.github.like5188:WebViewComponentService:0.0.4'
+        implementation 'com.github.like5188:Common:5.8.0'
+        implementation 'com.github.like5188:WebViewComponentService:版本号'
         implementation 'com.github.like5188:WebViewComponent:版本号'
     }
 ```
 
-2、通过 implementation 'com.github.like5188:WebViewComponentService:0.0.4' 库中的 IWebViewService 接口进行相关操作，详情见例子。
+2、通过 implementation 'com.github.like5188:WebViewComponentService:版本号' 库中的 IWebViewService 接口进行相关操作，详情见例子。
