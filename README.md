@@ -24,7 +24,7 @@
 在Module的gradle中加入：
 ```groovy
     dependencies {
-        implementation 'com.github.like5188:Common:5.8.0'
+        implementation 'com.github.like5188:Common:版本号'
         implementation 'com.github.like5188:WebViewComponentService:版本号'
         implementation 'com.github.like5188:WebViewComponent:版本号'
     }
