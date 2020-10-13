@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import com.like.common.base.BaseFragment
+import com.like.common.base.BaseLazyFragment
 import com.like.webview.JavascriptInterface
 import com.like.webview.X5Listener
 import com.like.webview.X5ProgressBarWebView
@@ -36,7 +36,7 @@ import com.tencent.smtt.sdk.WebView
  *          <dimen name="webview_progress_bar_height">3dp</dimen>
  *          </resources>
  */
-class WebViewFragment(private val url: String?) : BaseFragment() {
+class WebViewFragment(private val url: String?) : BaseLazyFragment() {
     private val mJavascriptInterface: JavascriptInterface by lazy { JavascriptInterface() }
     private var mX5ProgressBarWebView: X5ProgressBarWebView? = null
     private var mWebView: WebView? = null
@@ -51,6 +51,7 @@ class WebViewFragment(private val url: String?) : BaseFragment() {
     }
 
     override fun onLazyLoadData() {
+        super.onLazyLoadData()
         mWebView?.loadUrl(url)
     }
 

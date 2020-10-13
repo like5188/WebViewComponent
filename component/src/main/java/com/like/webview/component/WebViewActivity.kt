@@ -4,6 +4,7 @@ import android.graphics.PixelFormat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.like.common.base.addFragments
 import com.like.common.util.AutoWired
 import com.like.common.util.injectForIntentExtras
 import com.like.common.util.startActivityByApplication
@@ -37,13 +38,7 @@ class WebViewActivity : AppCompatActivity() {
         injectForIntentExtras()
         mBinding
         url?.let {
-            val fragment = WebViewFragment(it)
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.fragment_holder, fragment)
-                // 触发BaseFragment的lazyLoadData()方法
-                hide(fragment)
-                show(fragment)
-            }.commit()
+            addFragments(R.id.fragment_holder, 0, WebViewFragment(it))
         }
     }
 

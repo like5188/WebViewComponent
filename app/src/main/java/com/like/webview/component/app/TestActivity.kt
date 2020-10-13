@@ -4,8 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.like.common.base.BaseActivity
+import com.like.common.base.addFragments
 import com.like.common.util.Logger
 import com.like.webview.X5Listener
 import com.like.webview.component.app.databinding.ActivityTestBinding
@@ -13,7 +14,7 @@ import com.like.webview.component.service.IWebViewService
 import com.tencent.smtt.sdk.WebView
 import org.json.JSONObject
 
-class TestActivity : BaseActivity() {
+class TestActivity : AppCompatActivity() {
     private val mBinding by lazy {
         DataBindingUtil.setContentView<ActivityTestBinding>(this, R.layout.activity_test)
     }
@@ -26,12 +27,7 @@ class TestActivity : BaseActivity() {
         val url = "file:///android_asset/index.html"
 //        val url = "https://www.sina.com.cn/"
         IWebViewService.getInstance()?.getWebViewFragment(url)?.let {
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.fragment_holder, it)
-                // 触发BaseFragment的lazyLoadData()方法
-                hide(it)
-                show(it)
-            }.commit()
+            addFragments(R.id.fragment_holder, 0, it)
         }
     }
 
