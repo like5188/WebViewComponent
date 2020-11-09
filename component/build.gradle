@@ -52,9 +52,9 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0-rc7'
     kapt 'com.google.auto.service:auto-service:1.0-rc7'
 
-    implementation 'com.github.like5188:Common:6.2.2'
+    implementation 'com.github.like5188:Common:6.2.3'
     // 组件化的必须用compileOnly，避免交叉引用导致在组合时打包release，出现bug：Program type already present: xxx.BuildConfig
-    compileOnly 'com.github.like5188:WebViewComponentService:0.0.8'
+    compileOnly 'com.github.like5188:WebViewComponentService:0.1.0'
 }
 
 apply from: rootProject.file('./gradle-mvn-push.gradle')
