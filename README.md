@@ -25,9 +25,9 @@
 ```groovy
     dependencies {
         implementation 'com.github.like5188:Common:版本号'
-        implementation 'com.github.like5188:WebViewComponentService:版本号'
-        implementation 'com.github.like5188:WebViewComponent:版本号'
+        implementation 'com.github.like5188:WebViewComponent:service:版本号'
+        implementation 'com.github.like5188:WebViewComponent:component:版本号'
     }
 ```
 
-2、通过 implementation 'com.github.like5188:WebViewComponentService:版本号' 库中的 IWebViewService 接口进行相关操作，详情见例子。
+2、通过 implementation 'com.github.like5188:WebViewComponent:service:版本号' 库中的 IWebViewService 接口进行相关操作，详情见例子。
