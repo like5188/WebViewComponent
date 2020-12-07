@@ -52,7 +52,7 @@ dependencies {
     implementation 'com.google.auto.service:auto-service:1.0-rc7'
     kapt 'com.google.auto.service:auto-service:1.0-rc7'
 
-    implementation 'com.github.like5188:Common:6.2.8'
+    implementation 'com.github.like5188:Common:6.3.1'
     implementation project(':service')
 }
 
