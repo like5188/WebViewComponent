@@ -46,32 +46,52 @@ class WebViewFragment(private val url: String?) : BaseLazyFragment() {
         mWebView?.loadUrl(url)
     }
 
-    internal fun getWebView(): WebView? {
+    fun getWebView(): WebView? {
         return mWebView
     }
 
-    internal fun setListener(listener: X5Listener) {
+    fun setListener(listener: X5Listener) {
         mX5ProgressBarWebView?.setListener(listener)
     }
 
-    internal fun addJavascriptInterface(javascriptInterface: Any, interfaceName: String) {
-        mWebView?.addJavascriptInterface(javascriptInterface, interfaceName)
-    }
-
-    internal fun pageUp() {
+    fun pageUp() {
         mWebView?.pageUp(true)
     }
 
-    internal fun pageDown() {
+    fun pageDown() {
         mWebView?.pageDown(true)
     }
 
-    internal fun reload() {
+    fun reload() {
         mWebView?.reload()
     }
 
-    internal fun callJsMethod(methodName: String, paramsJsonString: String?, callback: ((String) -> Unit)?) {
+    /**
+     * js 调用 android 方法时使用
+     */
+    fun addJavascriptInterface(javascriptInterface: Any, interfaceName: String) {
+        mWebView?.addJavascriptInterface(javascriptInterface, interfaceName)
+    }
+
+    /**
+     * android 调用 js 方法
+     *
+     * @param methodName        js 方法的名字
+     * @param paramsJsonString  js 方法的参数
+     * @param callback          回调方法，用于处理 js 方法返回的 String 类型的结果。
+     */
+    fun callJsMethod(methodName: String, paramsJsonString: String?, callback: ((String) -> Unit)?) {
         mX5ProgressBarWebView?.callJsMethod(methodName, paramsJsonString, callback)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mWebView?.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mWebView?.onResume()
     }
 
     override fun onDestroy() {
