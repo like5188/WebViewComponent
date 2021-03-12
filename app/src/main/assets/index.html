@@ -20,8 +20,9 @@
 	        var user = {};
             user.name= "like";
             user.age = 36;
-            var str=window.androidAPI.callAndroidMethod("androidMethodName",JSON.stringify(user));
-            alert("调用了Android的callAndroidMethod方法，返回值：" + str);
+            var methodName = "androidMethodName";
+            var str=window.androidAPI.callAndroidMethod(methodName,JSON.stringify(user));
+            alert("调用了Android的"+methodName+"方法，返回值：" + str);
        }
 
 
