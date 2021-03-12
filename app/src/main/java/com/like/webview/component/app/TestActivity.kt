@@ -36,6 +36,10 @@ class TestActivity : AppCompatActivity() {
         initWebViewFragment()
     }
 
+    fun startWebViewActivity(view: View) {
+        IWebViewService.getInstance()?.startWebViewActivity("https://www.sina.com.cn/")
+    }
+
     private fun initWebViewFragment() {
         IWebViewService.getInstance()?.setInterfaceName("androidAPI")
         IWebViewService.getInstance()?.registerAndroidMethodForJSCall("androidMethodName") {
@@ -55,10 +59,7 @@ class TestActivity : AppCompatActivity() {
             }
 
             override fun onReceivedTitle(webView: WebView?, title: String?) {
-                if (title != null && title.length > 6)
-                    mBinding.tvTitle.text = "${title.subSequence(0, 6)}..."
-                else
-                    mBinding.tvTitle.text = title
+                mBinding.tvTitle.text = title
             }
 
             override fun onProgressChanged(webView: WebView?, progress: Int?) {
@@ -73,10 +74,6 @@ class TestActivity : AppCompatActivity() {
             override fun onReceivedError(webView: WebView?) {
             }
         })
-    }
-
-    fun startWebViewActivity(view: View) {
-        IWebViewService.getInstance()?.startWebViewActivity("https://www.sina.com.cn/")
     }
 
     fun pageUp(view: View) {
