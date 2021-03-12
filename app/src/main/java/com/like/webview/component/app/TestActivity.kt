@@ -3,6 +3,7 @@ package com.like.webview.component.app
 import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -42,10 +43,17 @@ class TestActivity : AppCompatActivity() {
     }
 
     private class JavascriptInterface {
-        @android.webkit.JavascriptInterface // API17及以上的版本中，需要此注解才能调用下面的方法
-        fun androidMethod(paramsJsonString: String): String {
-            Logger.d("js调用了androidMethod方法，参数：$paramsJsonString")
-            return "123"
+        @android.webkit.JavascriptInterface// API17及以上的版本中，需要此注解才能调用下面的方法
+        fun androidMethod(params: String): String {
+            try {
+                val jsonObject = JSONObject(params)
+                val name = jsonObject.optString("name")
+                val age = jsonObject.optInt("age")
+                Log.d("WebViewActivity", "androidMethod name=$name age=$age")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+            return "js 调用 android 的 androidMethod 方法成功"
         }
 
         @android.webkit.JavascriptInterface

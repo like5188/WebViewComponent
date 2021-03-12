@@ -12,7 +12,7 @@ import com.like.webview.component.databinding.WebviewActivityWebviewBinding
 
 /**
  * 对 [WebViewFragment] 的封装
- * 用于简单显示网页，而不进行交互，如果需要交互，请使用 [WebViewFragment]
+ * 用于简单显示网页，而不进行交互，如果需要交互，请直接通过 [com.like.webview.component.service.IWebViewService] 来操作 [WebViewFragment]
  */
 class WebViewActivity : AppCompatActivity() {
     @AutoWired

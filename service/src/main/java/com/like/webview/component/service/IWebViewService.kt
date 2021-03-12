@@ -23,9 +23,7 @@ interface IWebViewService {
     }
 
     /**
-     * 1、用于简单显示网页，而不进行交互，也就是说不能使用其它方法。
-     * 2、如果需要交互，请使用 [getWebViewFragment] 获取 Fragment 进行封装，然后就可以使用其它方法。
-     * 注意：其它方法是指：[getWebView]、[setListener]、[addJavascriptInterface]、[pageUp]、[pageDown]、[reload]
+     * 用于简单显示网页，而不进行交互。
      */
     fun startWebViewActivity(url: String)
 
@@ -35,13 +33,16 @@ interface IWebViewService {
 
     fun setListener(listener: X5Listener)
 
-    fun addJavascriptInterface(javascriptInterface: Any, interfaceName: String)
-
     fun pageUp()
 
     fun pageDown()
 
     fun reload()
+
+    /**
+     * js 调用 android 方法时使用
+     */
+    fun addJavascriptInterface(javascriptInterface: Any, interfaceName: String)
 
     /**
      * android 调用 js 方法

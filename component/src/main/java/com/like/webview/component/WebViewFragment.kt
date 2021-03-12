@@ -85,6 +85,10 @@ class WebViewFragment(private val url: String?) : BaseLazyFragment() {
         mWebView?.reload()
     }
 
+    internal fun callJsMethod(methodName: String, paramsJsonString: String?, callback: ((String) -> Unit)?) {
+        mX5ProgressBarWebView?.callJsMethod(methodName, paramsJsonString, callback)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         mWebView?.destroy()
