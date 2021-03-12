@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import com.like.common.base.addFragments
 import com.like.common.util.Logger
 import com.like.webview.X5Listener
+import com.like.webview.component.WebViewFragment
 import com.like.webview.component.app.databinding.ActivityTestBinding
 import com.like.webview.component.service.IWebViewService
 import com.tencent.smtt.sdk.CookieManager
@@ -20,6 +21,7 @@ class TestActivity : AppCompatActivity() {
     private val mBinding by lazy {
         DataBindingUtil.setContentView<ActivityTestBinding>(this, R.layout.activity_test)
     }
+    private var mWebViewFragment: WebViewFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +32,17 @@ class TestActivity : AppCompatActivity() {
 //        val url = "http://car1.i.cacf.cn/#/reservation/redestination"
         IWebViewService.getInstance()?.getWebViewFragment(url)?.let {
             addFragments(R.id.fragment_holder, 0, it)
+            mWebViewFragment = it as WebViewFragment
         }
+    }
+
+    fun startWebViewActivity(view: View) {
+        IWebViewService.getInstance()?.startWebViewActivity("https://www.sina.com.cn/")
     }
 
     override fun onStart() {
         super.onStart()
         initWebViewFragment()
-    }
-
-    fun startWebViewActivity(view: View) {
-        IWebViewService.getInstance()?.startWebViewActivity("https://www.sina.com.cn/")
     }
 
     private class JavascriptInterface {
@@ -73,12 +76,12 @@ class TestActivity : AppCompatActivity() {
     }
 
     private fun initWebViewFragment() {
-        IWebViewService.getInstance()?.addJavascriptInterface(JavascriptInterface(), "appKcwc")
+        mWebViewFragment?.addJavascriptInterface(JavascriptInterface(), "appKcwc")
         val cookieManager = CookieManager.getInstance()
         cookieManager.setAcceptCookie(true)
         cookieManager.removeAllCookie()
         cookieManager.setCookie("http://car1.i.cacf.cn", "mechine_type=android")
-        IWebViewService.getInstance()?.setListener(object : X5Listener {
+        mWebViewFragment?.setListener(object : X5Listener {
             override fun onReceivedIcon(webView: WebView?, icon: Bitmap?) {
                 mBinding.ivIcon.setImageBitmap(icon)
             }
@@ -102,15 +105,15 @@ class TestActivity : AppCompatActivity() {
     }
 
     fun pageUp(view: View) {
-        IWebViewService.getInstance()?.pageUp()
+        mWebViewFragment?.pageUp()
     }
 
     fun pageDown(view: View) {
-        IWebViewService.getInstance()?.pageDown()
+        mWebViewFragment?.pageDown()
     }
 
     fun reload(view: View) {
-        IWebViewService.getInstance()?.reload()
+        mWebViewFragment?.reload()
     }
 
     fun callJSMethod(view: View) {
@@ -118,7 +121,7 @@ class TestActivity : AppCompatActivity() {
             val params = JSONObject()
             params.put("name", "like1")
             params.put("age", 22)
-            IWebViewService.getInstance()?.callJsMethod(
+            mWebViewFragment?.callJsMethod(
                 "jsMethodName",
                 params.toString()
             ) {
