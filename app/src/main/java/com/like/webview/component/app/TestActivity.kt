@@ -3,9 +3,7 @@ package com.like.webview.component.app
 import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.webkit.JavascriptInterface
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.like.common.base.addFragments
@@ -13,6 +11,7 @@ import com.like.common.util.Logger
 import com.like.webview.X5Listener
 import com.like.webview.component.app.databinding.ActivityTestBinding
 import com.like.webview.component.service.IWebViewService
+import com.tencent.smtt.sdk.CookieManager
 import com.tencent.smtt.sdk.WebView
 import org.json.JSONObject
 
@@ -27,7 +26,7 @@ class TestActivity : AppCompatActivity() {
         window.setFormat(PixelFormat.TRANSLUCENT)
         mBinding
         val url = "file:///android_asset/index.html"
-//        val url = "https://www.sina.com.cn/"
+//        val url = "http://car1.i.cacf.cn/#/reservation/redestination"
         IWebViewService.getInstance()?.getWebViewFragment(url)?.let {
             addFragments(R.id.fragment_holder, 0, it)
         }
@@ -48,10 +47,29 @@ class TestActivity : AppCompatActivity() {
             Logger.d("js调用了androidMethod方法，参数：$paramsJsonString")
             return "123"
         }
+
+        @android.webkit.JavascriptInterface
+        fun goBack() {
+            Logger.d("js调用了goBack方法")
+        }
+
+        @android.webkit.JavascriptInterface
+        fun login() {
+            Logger.d("js调用了login方法")
+        }
+
+        @android.webkit.JavascriptInterface
+        fun login(a: String) {
+            Logger.d("js调用了login方法，参数：$a")
+        }
     }
 
     private fun initWebViewFragment() {
-        IWebViewService.getInstance()?.addJavascriptInterface(JavascriptInterface(), "androidAPI")
+        IWebViewService.getInstance()?.addJavascriptInterface(JavascriptInterface(), "appKcwc")
+        val cookieManager = CookieManager.getInstance()
+        cookieManager.setAcceptCookie(true)
+        cookieManager.removeAllCookie()
+        cookieManager.setCookie("http://car1.i.cacf.cn", "mechine_type=android")
         IWebViewService.getInstance()?.setListener(object : X5Listener {
             override fun onReceivedIcon(webView: WebView?, icon: Bitmap?) {
                 mBinding.ivIcon.setImageBitmap(icon)
