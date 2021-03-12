@@ -3,7 +3,9 @@ package com.like.webview.component.app
 import android.graphics.Bitmap
 import android.graphics.PixelFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.webkit.JavascriptInterface
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.like.common.base.addFragments
@@ -40,19 +42,16 @@ class TestActivity : AppCompatActivity() {
         IWebViewService.getInstance()?.startWebViewActivity("https://www.sina.com.cn/")
     }
 
-    private fun initWebViewFragment() {
-        IWebViewService.getInstance()?.setInterfaceName("androidAPI")
-        IWebViewService.getInstance()?.registerAndroidMethodForJSCall("androidMethodName") {
-            try {
-                val jsonObject = JSONObject(it)
-                val name = jsonObject.optString("name")
-                val age = jsonObject.optInt("age")
-                Logger.d("androidMethodName name=$name age=$age")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            "js调用android方法成功"
+    private class JavascriptInterface {
+        @android.webkit.JavascriptInterface // API17及以上的版本中，需要此注解才能调用下面的方法
+        fun androidMethod(paramsJsonString: String): String {
+            Logger.d("js调用了androidMethod方法，参数：$paramsJsonString")
+            return "123"
         }
+    }
+
+    private fun initWebViewFragment() {
+        IWebViewService.getInstance()?.addJavascriptInterface(JavascriptInterface(), "androidAPI")
         IWebViewService.getInstance()?.setListener(object : X5Listener {
             override fun onReceivedIcon(webView: WebView?, icon: Bitmap?) {
                 mBinding.ivIcon.setImageBitmap(icon)
@@ -93,7 +92,10 @@ class TestActivity : AppCompatActivity() {
             val params = JSONObject()
             params.put("name", "like1")
             params.put("age", 22)
-            IWebViewService.getInstance()?.callJSMethod("jsMethodName", params.toString()) {
+            IWebViewService.getInstance()?.callJsMethod(
+                "jsMethodName",
+                params.toString()
+            ) {
                 Logger.d("callJsMethod 返回值：$it")
             }
         } catch (e: Exception) {

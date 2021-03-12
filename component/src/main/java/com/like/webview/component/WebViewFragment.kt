@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.like.common.base.BaseLazyFragment
-import com.like.webview.JavascriptInterface
 import com.like.webview.X5Listener
 import com.like.webview.X5ProgressBarWebView
 import com.like.webview.component.databinding.WebviewFragmentWebviewBinding
@@ -37,13 +36,20 @@ import com.tencent.smtt.sdk.WebView
  *          </resources>
  */
 class WebViewFragment(private val url: String?) : BaseLazyFragment() {
-    private val mJavascriptInterface: JavascriptInterface by lazy { JavascriptInterface() }
     private var mX5ProgressBarWebView: X5ProgressBarWebView? = null
     private var mWebView: WebView? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<WebviewFragmentWebviewBinding>(inflater, R.layout.webview_fragment_webview, container, false)
-            ?: throw RuntimeException("初始化 WebViewFragment 失败")
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = DataBindingUtil.inflate<WebviewFragmentWebviewBinding>(
+            inflater,
+            R.layout.webview_fragment_webview,
+            container,
+            false
+        ) ?: throw RuntimeException("初始化 WebViewFragment 失败")
         mX5ProgressBarWebView = binding.webView
         mWebView = mX5ProgressBarWebView?.getWebView()
         mWebView?.settings?.cacheMode = WebSettings.LOAD_NO_CACHE// 支持微信H5支付
@@ -63,17 +69,8 @@ class WebViewFragment(private val url: String?) : BaseLazyFragment() {
         mX5ProgressBarWebView?.setListener(listener)
     }
 
-    internal fun setInterfaceName(interfaceName: String) {
-        mWebView?.addJavascriptInterface(mJavascriptInterface, interfaceName)
-    }
-
-    internal fun registerAndroidMethodForJSCall(methodName: String, method: (String) -> String) {
-        mJavascriptInterface.registerAndroidMethodForJSCall(methodName, method)
-    }
-
-    internal fun callJSMethod(methodName: String, paramsJsonString: String? = null, callback: ((String) -> Unit)? = null) {
-        val webView = mWebView ?: return
-        mJavascriptInterface.callJsMethod(webView, methodName, paramsJsonString, callback)
+    internal fun addJavascriptInterface(javascriptInterface: Any, interfaceName: String) {
+        mWebView?.addJavascriptInterface(javascriptInterface, interfaceName)
     }
 
     internal fun pageUp() {
@@ -91,7 +88,6 @@ class WebViewFragment(private val url: String?) : BaseLazyFragment() {
     override fun onDestroy() {
         super.onDestroy()
         mWebView?.destroy()
-        mJavascriptInterface.clearAndroidMethodForJSCall()
     }
 
 }

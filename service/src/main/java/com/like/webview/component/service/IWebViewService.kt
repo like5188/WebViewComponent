@@ -25,8 +25,7 @@ interface IWebViewService {
     /**
      * 1、用于简单显示网页，而不进行交互，也就是说不能使用其它方法。
      * 2、如果需要交互，请使用 [getWebViewFragment] 获取 Fragment 进行封装，然后就可以使用其它方法。
-     * 注意：其它方法是指：[getWebView]、[setListener]、[setInterfaceName]、[registerAndroidMethodForJSCall]、
-     * [callJSMethod]、[pageUp]、[pageDown]、[reload]
+     * 注意：其它方法是指：[getWebView]、[setListener]、[addJavascriptInterface]、[pageUp]、[pageDown]、[reload]
      */
     fun startWebViewActivity(url: String)
 
@@ -36,15 +35,24 @@ interface IWebViewService {
 
     fun setListener(listener: X5Listener)
 
-    fun setInterfaceName(interfaceName: String)
-
-    fun registerAndroidMethodForJSCall(methodName: String, method: (String) -> String)
-
-    fun callJSMethod(methodName: String, paramsJsonString: String? = null, callback: ((String) -> Unit)? = null)
+    fun addJavascriptInterface(javascriptInterface: Any, interfaceName: String)
 
     fun pageUp()
 
     fun pageDown()
 
     fun reload()
+
+    /**
+     * android 调用 js 方法
+     *
+     * @param methodName        js 方法的名字
+     * @param paramsJsonString  js 方法的参数
+     * @param callback          回调方法，用于处理 js 方法返回的 String 类型的结果。
+     */
+    fun callJsMethod(
+        methodName: String,
+        paramsJsonString: String? = null,
+        callback: ((String) -> Unit)? = null
+    )
 }
