@@ -1,6 +1,6 @@
 package com.like.webview.component.app
 
-import com.like.common.base.BaseComponentApplication
+import com.like.component.BaseComponentApplication
 
 class MyApplication : BaseComponentApplication() {
 
